@@ -1,0 +1,97 @@
+@charset "utf-8";
+/* CSS Document */
+
+body { 
+font-family:"微软雅黑";
+padding:30px;
+}
+
+p{ 	
+font-size:18px;
+	 }
+.article-main{
+	background:#fff;
+	height:540px;
+	position:relative;
+	}
+.article-title{
+	color:#666;
+	width:250px;
+	font-size:36px;
+	margin-top:0;
+	 }
+	 
+.article-author, .article-category{
+	color:#666;
+	width:250px;
+	line-height:10px;
+	font-size:16px;	
+	font-weight:normal;
+	 }	
+.article-author{
+	border-bottom:#666 1px solid;
+	padding-bottom:10px;
+	margin-bottom:10px;
+	}	 
+.article-abstract{
+	margin-top:2em;
+	font-size:18px;
+	color:#666;
+	width:300px;
+	line-height:30px;
+ }	 
+.article-abstract::first-letter{
+ 	display:inline-block;	
+	font-size:32px;
+	color:#E83A00; 
+	}
+.allslides{
+	display:block;
+	position:absolute;
+	left:360px;
+	top:0;
+	height:540px;
+	width:auto;
+	white-space: nowrap;
+	}
+.slide{
+	display: inline-block;
+	height:100%;
+	position:relative;
+}
+.slide img{
+	height:100%;
+	width:auto;
+	}
+.slide a{
+	display:inline-block;
+	height:100%;
+	}
+.imgcaption{
+	background-color:#000;
+	width:auto;	
+	opacity: 0.7;
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	color:#fff;
+	font-size:16px;
+	padding:10px;
+	overflow:hidden;
+	}
+.videoslide{
+	position:relative;
+	}
+.videoslide:before
+{
+	content:"";
+	background:url(../images/xinjiang/video_play.png) no-repeat;
+	width:60px;
+	height:60px;
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin:-30px 0 0 -30px;
+}
+
