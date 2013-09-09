@@ -201,7 +201,7 @@ ZY.UIManager=function(){
                 if(data["background"]["type"]!="mp4"){
                     //$(target).find(".zy_theme_bg_content").attr("src",data["background"]["filepath"]);
 					$(target).append($("<img class='zy_theme_bg_content' src='"+data["background"]["filepath"]+"' onload='ZY.UIManager.fadingIn(this)' />"));
-                }else{
+                }else if(!ZY.Config.deviceCode.iOS){
                     //视频作为背景
 					$(target).append($("<video class='zy_theme_bg_content' autoplay loop muted oncanplay='ZY.UIManager.fadingIn(this)'><source src='"+data["background"]["filepath"]+"' type='video/mp4' /></video>"));
                 }
@@ -237,10 +237,10 @@ ZY.UIManager=function(){
 			var winH=$(window).height();
 			var tpH=$(".zy_top_post").height();
 			var ftH=$(".zy_featured").height();
-			var landScapeBG=$("#zy_landscape_theme");
-			var peopleBG=$("#zy_people_theme");
-			var artifactBG=$("#zy_artifact_theme");
-			var communityBG=$("#zy_community_theme");
+			var landScapeBG=$("#zy_landscape_theme .zy_theme_bg_content");
+			var peopleBG=$("#zy_people_theme .zy_theme_bg_content");
+			var artifactBG=$("#zy_artifact_theme .zy_theme_bg_content");
+			var communityBG=$("#zy_community_theme .zy_theme_bg_content");
 			
 			var tpY=$(".zy_top_post").offset().top;
 			var ftY=$(".zy_featured").offset().top;
@@ -273,8 +273,8 @@ ZY.UIManager=function(){
 			
 			//设置背景状态
 			if(sy>landScapeY-winH && sy<=landScapeY+720){
-				if(landScapeBG.hasClass("zy_hidden")){
-					landScapeBG.removeClass("zy_hidden")
+				if(!ZY.Config.deviceCode.iOS){
+					landScapeBG.addClass("zy_bg_fixed");
 				}
 				if(!ZY.DataManager.landscapeLoaded){
 				/*====获取第1个分类(风景）文章，等宽340===*/
@@ -283,14 +283,12 @@ ZY.UIManager=function(){
 				}
 								
 			}else{				
-				if(!landScapeBG.hasClass("zy_hidden")){
-					landScapeBG.addClass("zy_hidden")
-				}				
+				landScapeBG.removeClass("zy_bg_fixed");				
 			}
 			
 			if(sy>peopleY-winH && sy<=peopleY+720){
-				if(peopleBG.hasClass("zy_hidden")){
-					peopleBG.removeClass("zy_hidden")
+				if(!ZY.Config.deviceCode.iOS){
+					peopleBG.addClass("zy_bg_fixed");
 				}
 				
 				if(!ZY.DataManager.peopleLoaded){
@@ -299,14 +297,12 @@ ZY.UIManager=function(){
 				ZY.DataManager.peopleLoaded=true;
 				}
 			}else{
-				if(!peopleBG.hasClass("zy_hidden")){
-					peopleBG.addClass("zy_hidden")
-				}
+				peopleBG.removeClass("zy_bg_fixed");
 			}
 			
 			if(sy>artifactY-winH && sy<=artifactY+720){
-				if(artifactBG.hasClass("zy_hidden")){
-					artifactBG.removeClass("zy_hidden")
+				if(!ZY.Config.deviceCode.iOS){
+					artifactBG.addClass("zy_bg_fixed");
 				}
 				if(!ZY.DataManager.artifactLoaded){
 				/*====获取第3个分类(物语）文章，等宽400===*/
@@ -314,13 +310,11 @@ ZY.UIManager=function(){
 				ZY.DataManager.artifactLoaded=true;
 				}
 			}else{
-				if(!artifactBG.hasClass("zy_hidden")){
-					artifactBG.addClass("zy_hidden")
-				}
+				artifactBG.removeClass("zy_bg_fixed");
 			}
 			if(sy>communityY-winH && sy<=communityY+720){
-				if(communityBG.hasClass("zy_hidden")){
-					communityBG.removeClass("zy_hidden")
+				if(!ZY.Config.deviceCode.iOS){
+					communityBG.addClass("zy_bg_fixed");
 				}
 				
 				if(!ZY.DataManager.communityLoaded){
@@ -329,9 +323,7 @@ ZY.UIManager=function(){
 				ZY.DataManager.communityLoaded=true;
 				}
 			}else{
-				if(!communityBG.hasClass("zy_hidden")){
-					communityBG.addClass("zy_hidden")
-				}
+				communityBG.removeClass("zy_bg_fixed");
 			}
         },
 

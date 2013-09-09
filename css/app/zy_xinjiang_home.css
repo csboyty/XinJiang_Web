@@ -9,6 +9,13 @@ body{
 .zy_hidden,.zy_disable{
     display: none;
 }
+/*固定背景样式*/
+.zy_bg_fixed{
+	position:fixed !important;
+	top:90px;
+	left:0;
+	}
+
 /*--印象、物语、小结统一的标题、背景、底纹样式--*/
 .zy_subheading{
 	padding:1.4em 0 0 0;
@@ -20,6 +27,7 @@ body{
 	font-style:italic;
 	background:#fff;
 	position:relative;
+	z-index:8;
 	}
 .zy_section_bg{
 	height:720px;	
@@ -29,12 +37,7 @@ body{
 	position:relative;
 	font-size:0;
 	}
-/*.zy_section_bg>.zy_section_bg_content{
-	min-width:100%;
-	min-height:720px;
-	position:fixed;
-	top:90px;
-	}*/
+
 .zy_article_hasvideo .zy_article_thumb:before
 {
 	content:"";
@@ -58,6 +61,7 @@ body{
 	-moz-box-shadow: 0 4px 4px rgba(0,0,0,0.2);
 	-ms-box-shadow: 0 4px 4px rgba(0,0,0,0.2);
 	box-shadow: 0 4px 4px rgba(0,0,0,0.2);
+	z-index:9;
 }
 .zy_dmxj:before{
 	content:"";
@@ -74,6 +78,7 @@ body{
 	height:380px;
 	font-size:0;
 	position:relative;
+	z-index:9;
 }
 .zy_cameral:before{
 	content:"";
@@ -108,6 +113,7 @@ body{
 	-moz-box-shadow: 0 4px 4px rgba(0,0,0,0.2);
 	-ms-box-shadow: 0 4px 4px rgba(0,0,0,0.2);
 	box-shadow: 0 4px 4px rgba(0,0,0,0.2);
+	z-index:9;
 	}
 .zy_temple{
 	height:260px;
@@ -115,6 +121,7 @@ body{
 	font-size:0;
 	text-indent:-9999px;
 	position:relative;
+	z-index:9;
 }
 /*向前向后两个按钮*/
 .zy_contain_prev,.zy_contain_next{
@@ -364,10 +371,11 @@ a.zy_music_play:hover{
 
 	}
 .zy_theme_bg{
-	position:fixed;
-	top:90px;
-	min-height: 720px;
+	height: 640px;
 	width:100%;
+	position:relative;
+	z-index:1;
+	overflow:hidden;
 	}
 .zy_theme_bg_content{
 	position:absolute;
@@ -531,7 +539,6 @@ a.zy_music_play:hover{
 /*---------------------------------风景部分-------------------------*/
 .zy_landscape{
 	position:relative;
-	z-index:4;
 	}
 .zy_landscape_heading{
 	font-size:0;
@@ -540,10 +547,10 @@ a.zy_music_play:hover{
 	width:290px;
 	height:230px;
 	position:absolute;
-	top:510px;
+	top:430px;
 	left:50%;
 	margin-left:-145px;
-	z-index:1;
+	z-index:9;
 	}
 .zy_landscape_contain{
     width: 100%;
@@ -558,6 +565,7 @@ a.zy_music_play:hover{
     white-space: nowrap;
     overflow: hidden;
     position: relative;
+	z-index:8;
 }
 .zy_landscape_list{    
 	margin:0;
@@ -650,7 +658,6 @@ a.zy_music_play:hover{
 /*------------------------------------人物部分--------------------------*/
 .zy_people{
 	position:relative;
-	z-index:3;
 	}
 .zy_people_bg{
 	height:640px;
@@ -664,10 +671,10 @@ a.zy_music_play:hover{
 	width:290px;
 	height:230px;
 	position:absolute;
-	top:510px;
+	top:430px;
 	left:50%;
 	margin-left:-145px;
-	z-index:1;
+	z-index:9;
 	}
 .zy_people_contain{
     width: 100%;
@@ -682,6 +689,7 @@ a.zy_music_play:hover{
     white-space: nowrap;
     overflow: hidden;
     position: relative;
+	z-index:8;
 }
 .zy_people_list{
     padding: 0;
@@ -753,7 +761,6 @@ a.zy_music_play:hover{
 /*------------------------------------物语部分--------------------------*/
 .zy_artifact{
 	position:relative;
-	z-index:2;
 	}
 .zy_artifact_bg{
 	height:640px;
@@ -767,10 +774,10 @@ a.zy_music_play:hover{
 	width:290px;
 	height:230px;
 	position:absolute;
-	top:510px;
+	top:430px;
 	left:50%;
 	margin-left:-145px;
-	z-index:1;
+	z-index:9;
 	}
 .zy_artifact_contain{
     width: 100%;
@@ -785,6 +792,7 @@ a.zy_music_play:hover{
     white-space: nowrap;
     overflow: hidden;
     position: relative;
+	z-index:8;
 }
 .zy_artifact_list{
 	margin:0;
@@ -849,8 +857,7 @@ a.zy_music_play:hover{
 	text-align:center;
 	color:#fff;
 	}
-.zy_artifact_article>.zy_article_abstract p{
-	
+.zy_artifact_article>.zy_article_abstract p{	
 	font-size:16px;
 	line-height:2em;
 	margin:auto;
@@ -871,7 +878,6 @@ a.zy_music_play:hover{
 /*------------------------------------社区部分--------------------------*/
 .zy_community{
 	position:relative;
-	z-index:1;
 	}
 .zy_community_bg{
 	height:640px;
@@ -885,10 +891,10 @@ a.zy_music_play:hover{
 	width:290px;
 	height:230px;
 	position:absolute;
-	top:510px;
+	top:430px;
 	left:50%;
 	margin-left:-145px;
-	z-index:1;
+	z-index:9;
 	}
 .zy_community_contain{
     width: 100%;
@@ -903,6 +909,7 @@ a.zy_music_play:hover{
     white-space: nowrap;
     overflow: hidden;
     position: relative;
+	z-index:8;
 }
 .zy_community_list{
 	margin:0;
