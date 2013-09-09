@@ -26,7 +26,7 @@ ZY.UIManager=function(){
 	//私有属性
 	var lastBlackoutZ=0;
 	var lastPageY=0;
-	var musicPlaying=true;
+	var musicPlaying=false;
 	//私有方法
 	var showBlackout=function(zindex){
 			lastBlackoutZ=$("#zy_wrap").css("z-index");
@@ -116,10 +116,17 @@ ZY.UIManager=function(){
 				$("#zy_music_process_value").css("width",currentTime/totalTime*100+"%")
 			//animate({width:"100%"},(times-currentTime)*1000);
 			});
+			//绑定播放事件
+			$("#zy_music_audio")[0].addEventListener("play",function(){
+				$("#zy_music_control").addClass("zy_music_pause").removeClass("zy_music_play");
+				musicPlaying=true;
+			});
 			//绑定暂停事件
 			$("#zy_music_audio")[0].addEventListener("pause",function(){
-			//$("#zy_music_process_value").stop();
+				$("#zy_music_control").removeClass("zy_music_pause").addClass("zy_music_play");
+				musicPlaying=false;
 			});
+			
 			//绑定结束事件
 			$("#zy_music_audio")[0].addEventListener("ended",function(){
 				_self.nextMusic();
@@ -134,13 +141,13 @@ ZY.UIManager=function(){
         },
 		pauseMusic:function(){
 			$("#zy_music_audio")[0].pause();
-            $("#zy_music_control").removeClass("zy_music_pause").addClass("zy_music_play");
-			musicPlaying=false;
+           	//$("#zy_music_control").removeClass("zy_music_pause").addClass("zy_music_play");
+			//musicPlaying=false;
 		},
 		playMusic:function(){
 			$("#zy_music_audio")[0].play();
-            $("#zy_music_control").addClass("zy_music_pause").removeClass("zy_music_play");
-			musicPlaying=true;
+            //$("#zy_music_control").addClass("zy_music_pause").removeClass("zy_music_play");
+			//musicPlaying=true;
 		},
 		nextMusic:function(){
 			$("#zy_music_process_value").stop().width("0%");
@@ -150,8 +157,8 @@ ZY.UIManager=function(){
 			$("#zy_music_author").html("Directed by "+target.data("music-author"));
 			$("#zy_music_title").html(target.data("music-title"));
 			target.addClass("active_music");
-			
-			$("#zy_music_control").addClass("zy_music_pause").removeClass("zy_music_play");
+			this.playMusic()
+			//$("#zy_music_control").addClass("zy_music_pause").removeClass("zy_music_play");
         },
 		popOutInit:function(){
 			var _self=this;

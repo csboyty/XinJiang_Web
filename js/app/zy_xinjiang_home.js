@@ -98,9 +98,15 @@ $(document).ready(function() {
 
     /*=====展示单篇文章页面，相应鼠标横向滚动事件=================*/
 	ZY.UIManager.bindHScrollOnWheel("zy_article_content")
-	
-	
-
+		
+    /*=====iOS触屏滚动支持=================*/
+	if(ZY.Config.deviceCode.iOS){
+		$(".zy_article_content").addClass("zy_touch_hscroll");
+		$("#zy_landscape_list_container").addClass("zy_touch_hscroll");
+		$("#zy_people_list_container").addClass("zy_touch_hscroll");
+		$("#zy_artifact_list_container").addClass("zy_touch_hscroll");
+		$("#zy_community_list_container").addClass("zy_touch_hscroll");		
+	}
 
     //最顶上一篇文章的点击load事件
     $(document).on("click","#zy_top_post_title",function(){
@@ -114,7 +120,6 @@ $(document).ready(function() {
 	//音乐控制
 	//初始化音乐播放器，绑定相关事件
     ZY.UIManager.initMusicPlayer();
-
 
 
    /*====获取第一个分类（人文）文章,左边有一个大的===*/
