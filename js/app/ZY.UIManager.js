@@ -147,7 +147,7 @@ ZY.UIManager=function(){
         	var target=$(".active_music").next().length!=0?$(".active_music").next():$("#zy_music_list li:eq(0)");
 			$(".active_music").removeClass("active_music");
 			$("#zy_music_audio").attr("src",target.html());//设置音乐路径
-			$("#zy_music_author").html(target.data("music-author"));
+			$("#zy_music_author").html("Directed by "+target.data("music-author"));
 			$("#zy_music_title").html(target.data("music-title"));
 			target.addClass("active_music");
 			

@@ -68,7 +68,7 @@ $(document).ready(function() {
 
                         //设置第一首音乐信息
                         $("#zy_music_audio").attr("src",musics[0].music_path);//设置音乐路径
-                        $("#zy_music_author").html(musics[0].music_author);
+                        $("#zy_music_author").html("Directed by "+musics[0].music_author);
                         $("#zy_music_title").html(musics[0].music_title);
                     }else{
                         ZY.UIManager.popOutMsg(ZY.Config.errorCode.musicError)
