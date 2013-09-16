@@ -1515,3 +1515,6 @@ a.zy_music_play:hover{
 	-ms-box-sizing: border-box;	
 	box-sizing: border-box;
 }
+.imgcaption-slide  span{
+    font-size: 21px;
+}
