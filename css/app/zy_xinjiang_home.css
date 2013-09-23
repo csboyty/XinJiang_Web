@@ -1416,6 +1416,7 @@ a.zy_music_play:hover{
 	-moz-box-sizing:border-box;
 	-ms-box-sizing:border-box;
 	box-sizing:border-box;
+    text-align: center;
 	}
 .videoslide{
     text-indent:0;
