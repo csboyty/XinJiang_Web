@@ -298,10 +298,20 @@ ZY.DataManager={
                 //显示前面一个按钮
                 prevBtn.removeClass("zy_disable");
 
-                if(parseInt(list.css("left"))<=-(list.find("li").length-limit)*width){
-                    //如果left的值已经到了总数的前一页，那么就让这个按钮disable。
-                    nextBtn.addClass("zy_disable");
+                if(categoryId==3){
+
+                    //风景有个大图，是其他的三倍
+                    if(parseInt(list.css("left"))<=-(list.find("li").length-limit+2)*width){
+                        //如果left的值已经到了总数的前一页，那么就让这个按钮disable。
+                        nextBtn.addClass("zy_disable");
+                    }
+                }else{
+                    if(parseInt(list.css("left"))<=-(list.find("li").length-limit)*width){
+                        //如果left的值已经到了总数的前一页，那么就让这个按钮disable。
+                        nextBtn.addClass("zy_disable");
+                    }
                 }
+
             });
         }else{
             //加载数据，加载后再执行动画
