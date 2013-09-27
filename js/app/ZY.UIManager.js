@@ -26,7 +26,6 @@ ZY.UIManager=function(){
 	//私有属性
 	var lastBlackoutZ=0;
 	var lastPageY=0;
-	var musicPlaying=false;
 	//私有方法
 	var showBlackout=function(zindex){
 			lastBlackoutZ=$("#zy_wrap").css("z-index");
@@ -89,19 +88,22 @@ ZY.UIManager=function(){
         	$("#zy_show_load_container").html("<img src='"+url+"'>");
         },
 		hideDetail:function(){
+            var audio=$("#zy_music_audio")[0];
 			$("#zy_wrap").css("z-index",lastBlackoutZ);
         	$("#zy_show_section").addClass("zy_hidden");
         	$("#zy_show_load_container").html("");
+
         	//恢复音乐
-        	if(musicPlaying){
-				$("#zy_music_audio")[0].play(); 
-				}   			
+            if(audio.paused){
+                audio.play();
+            }
         },
 		initMusicPlayer:function(){
 			//绑定播放暂停控制
 			var _self=this;
+            var audio= $("#zy_music_audio");
 			$("#zy_music_control").click(function(){
-				_self.toggleMusicPlayPause()
+				_self.toggleMusicPlayPause();
             });
 			//绑定下一首
 			$("#zy_music_next").click(function(){
@@ -109,45 +111,39 @@ ZY.UIManager=function(){
 			});
 			
 			//绑定进度条
-			$("#zy_music_audio")[0].addEventListener("timeupdate",function(){
+            audio[0].addEventListener("timeupdate",function(){
 				var audio=$(this)[0];
 				var totalTime=audio.duration;
 				var currentTime=audio.currentTime;
-				$("#zy_music_process_value").css("width",currentTime/totalTime*100+"%")
+				$("#zy_music_process_value").css("width",currentTime/totalTime*100+"%");
 			//animate({width:"100%"},(times-currentTime)*1000);
 			});
-			//绑定播放事件
-			$("#zy_music_audio")[0].addEventListener("play",function(){
-				$("#zy_music_control").addClass("zy_music_pause").removeClass("zy_music_play");
-				musicPlaying=true;
-			});
-			//绑定暂停事件
-			$("#zy_music_audio")[0].addEventListener("pause",function(){
-				$("#zy_music_control").removeClass("zy_music_pause").addClass("zy_music_play");
-				musicPlaying=false;
-			});
+
 			
 			//绑定结束事件
-			$("#zy_music_audio")[0].addEventListener("ended",function(){
+            audio[0].addEventListener("ended",function(){
 				_self.nextMusic();
 			});
         },
 		toggleMusicPlayPause:function(){
 			if($("#zy_music_control").hasClass("zy_music_play")){
-           		this.playMusic()
+           		this.playMusic();
        		}else if ($("#zy_music_control").hasClass("zy_music_pause")){
-            	this.pauseMusic()
+            	this.pauseMusic();
+
             }
         },
 		pauseMusic:function(){
-			$("#zy_music_audio")[0].pause();
-           	//$("#zy_music_control").removeClass("zy_music_pause").addClass("zy_music_play");
-			//musicPlaying=false;
+            var audio=$("#zy_music_audio");
+            audio[0].pause();
+            audio.attr("autoplay",false);
+           	$("#zy_music_control").removeClass("zy_music_pause").addClass("zy_music_play");
 		},
 		playMusic:function(){
-			$("#zy_music_audio")[0].play();
-            //$("#zy_music_control").addClass("zy_music_pause").removeClass("zy_music_play");
-			//musicPlaying=true;
+            var audio=$("#zy_music_audio");
+            audio[0].play();
+            audio.attr("autoplay","autopaly");
+            $("#zy_music_control").addClass("zy_music_pause").removeClass("zy_music_play");
 		},
 		nextMusic:function(){
 			$("#zy_music_process_value").stop().width("0%");
@@ -157,8 +153,7 @@ ZY.UIManager=function(){
 			$("#zy_music_author").html("Directed by "+target.data("music-author"));
 			$("#zy_music_title").html(target.data("music-title"));
 			target.addClass("active_music");
-			this.playMusic()
-			//$("#zy_music_control").addClass("zy_music_pause").removeClass("zy_music_play");
+
         },
 		popOutInit:function(){
 			var _self=this;
