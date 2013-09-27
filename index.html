@@ -65,7 +65,7 @@
             </div>
             <p class="zy_music_title" id="zy_music_title">加载中...</p>            
             
-            <a id="zy_music_control" class="zy_player_btn zy_music_play"></a>
+            <a id="zy_music_control" class="zy_player_btn zy_music_pause"></a>
             <a id="zy_music_next" class="zy_player_btn zy_music_next"></a>
         </div>
         <!--播放器-->
@@ -379,7 +379,7 @@
                                 {@if slide.title}
 
                                     {@if slide.memo}
-                                        <div class="imgcaption-slide">${slide.title}:${slide.memo}</div>
+                                        <div class="imgcaption-slide"><span>${slide.title}</span>：${slide.memo}</div>
                                     {@else}
                                         <div class="imgcaption-slide">${slide.title}</div>
                                     {@/if}
