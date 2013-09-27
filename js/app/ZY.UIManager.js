@@ -142,7 +142,7 @@ ZY.UIManager=function(){
 		playMusic:function(){
             var audio=$("#zy_music_audio");
             audio[0].play();
-            audio.attr("autoplay","autopaly");
+            audio.attr("autoplay","autoplay");
             $("#zy_music_control").addClass("zy_music_pause").removeClass("zy_music_play");
 		},
 		nextMusic:function(){
