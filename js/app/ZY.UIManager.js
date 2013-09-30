@@ -26,7 +26,9 @@ ZY.UIManager=function(){
 	//私有属性
 	var lastBlackoutZ=0;
 	var lastPageY=0;
-	//私有方法
+    var musicPlaying=true; //音乐是否应该播放
+
+    //私有方法
 	var showBlackout=function(zindex){
 			lastBlackoutZ=$("#zy_wrap").css("z-index");
 			$("#zy_wrap").css("z-index",zindex);
@@ -94,7 +96,7 @@ ZY.UIManager=function(){
         	$("#zy_show_load_container").html("");
 
         	//恢复音乐
-            if(audio.paused){
+            if(musicPlaying){
                 audio.play();
             }
         },
@@ -136,12 +138,14 @@ ZY.UIManager=function(){
 		pauseMusic:function(){
             var audio=$("#zy_music_audio");
             audio[0].pause();
+            musicPlaying=false;
             audio.attr("autoplay",false);
            	$("#zy_music_control").removeClass("zy_music_pause").addClass("zy_music_play");
 		},
 		playMusic:function(){
             var audio=$("#zy_music_audio");
             audio[0].play();
+            musicPlaying=true;
             audio.attr("autoplay","autoplay");
             $("#zy_music_control").addClass("zy_music_pause").removeClass("zy_music_play");
 		},
