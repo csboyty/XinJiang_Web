@@ -280,8 +280,12 @@ body{
     text-align:center;
     font-size: 12px;
     font-weight: bold;
-    margin: 2px 0;
+    margin: 2px auto;
 	color:#E83A00;
+	width: 220px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 .zy_music_author{
     color: #b3b3b3;
