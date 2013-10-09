@@ -376,31 +376,7 @@ a.zy_music_play:hover{
 .zy_main_wrapper{
 	
 	}
-/*------------------------------主题背景------------------------------*/
-.zy_theme_background{
 
-	}
-.zy_theme_bg{
-	height: 640px;
-	width:100%;
-	position:relative;
-	z-index:1;
-	overflow:hidden;
-	}
-.zy_theme_bg_content{
-	position:absolute;
-	top:0;
-	min-width: 100%;
-	min-height: 720px;
-	opacity:0;
-	-webkit-transition:opacity 1s;
-	-moz-transition:opacity 1s;
-	-ms-transition:opacity 1s;
-	transition:opacity 1s;
-	}
-.zy_theme_bg_default{
-	opacity:1;
-	}
 /*------------------------------封面故事------------------------------*/
 .zy_top_post{
 	position:relative;
