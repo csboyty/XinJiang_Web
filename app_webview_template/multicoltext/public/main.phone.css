@@ -1,0 +1,137 @@
+@charset "utf-8";
+/* CSS Document */
+
+body { 
+	font-family:"微软雅黑";
+	margin:0;
+	position:absolute;
+	top:0;
+	bottom:0;
+	width:100%;
+}
+h1,h2{margin:0;}
+.article-main{
+	-webkit-box-sizing:	border-box;
+	-ms-box-sizing:	border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:	border-box;
+	height:100%;
+	position:relative;
+	top:0;
+	bottom:0;
+	width:100%;
+	}
+.article-head{
+	box-sizing:border-box;
+	padding:20px;
+	background:#fff;
+	width:100%;
+	text-align:center;
+	}
+.article-head h1{
+	padding:0 0 20px 0;}
+.article-title{
+	display:inline-block;
+	font-size:38px;
+	color:#666;
+	width:auto;
+	padding-left:25px;
+	padding-right:25px;
+	padding-top:15px;	
+	}
+.article-author, .article-category,.article-time{
+	color:#666;
+	line-height:1.5em;
+	font-size:16px;	
+	font-weight:normal;
+	 }
+.article-author{
+	margin-bottom:10px;
+	padding-bottom:10px;
+	border-bottom:#666 solid 1px;
+	}
+.article-category{
+	 display:inline-block;
+	 padding-right:10px;
+	}
+.article-time{
+	  display:inline-block; 
+	  border-left:#666 solid 1px; 
+	  padding-left:10px;
+	 }
+.article-poster{
+	/*position:absolute;
+	left:0;
+	top:0;
+	bottom:0;*/
+	width:100%;
+	font-size:0;
+	}
+.article-poster img{
+	width:100%;
+	}
+	
+.article-content{ 
+	background:#fff;
+    color: #666666;
+    font-size:16px;
+    width:70%;
+    padding:50px 0 20px 40px;
+	line-height:2em;
+	letter-spacing:2px;
+	z-index:0.5;
+	text-indent: 2em;
+	margin:auto;
+}
+.article-content::first-letter{
+ 	display:inline-block;	
+	font-size:32px;
+	color:#E83A00; 
+}
+.article-content div{
+	display:block;
+	margin:auto;
+	text-align:center;
+	}
+.article-content figure{
+	width:100%;
+	margin:0;
+	text-align:center;
+	}
+.article-content a{
+	display:block;
+	}
+.article-content img{
+	max-width:100%;
+	display:block;
+	margin:auto;
+	}
+.videoslide{
+	text-indent:0;
+	display:inline-block;
+	position:relative;
+	}
+.videoslide:before
+{
+	content:"";
+	background:url(../asset.phone/video_play.png) no-repeat;
+	width:60px;
+	height:60px;
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin:-30px 0 0 -30px;
+}
+
+.article-content figcaption{
+        color: #ca2e3a;
+        font-size: 12px;
+        font-style: italic;
+        line-height: 1.4em;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+        text-align:center;
+}
+

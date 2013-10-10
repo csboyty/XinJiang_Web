@@ -1,0 +1,133 @@
+@charset "utf-8";
+/* CSS Document */
+
+body { 
+	font-family:"微软雅黑";
+	margin:0;
+	position:absolute;
+	top:0;
+	width:100%;
+	overflow:hidden;
+}
+h1,h2{margin:0;}
+.article-main{
+	-webkit-box-sizing:	border-box;
+	-ms-box-sizing:	border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:	border-box;
+	height:690px;
+	overflow-y:hidden;
+	position:relative;
+	top:30px;
+	width:100%;
+	-webkit-overflow-scrolling:touch;
+	}
+.article-head{
+	position:absolute;
+	bottom:0;
+	left:250px;
+	z-index:3;
+	box-sizing:border-box;
+	padding:15px;
+	background:#fff;
+	height:150px;
+	min-width:50%;
+	}
+.article-head h1{
+	padding:0 0 20px 0;}
+.article-title{
+	display:block;
+	font-size:36px;
+	color:#666;
+	width:auto;
+	padding-left:25px;
+	padding-right:25px;
+	padding-top:15px;	
+	}
+.article-author, .article-category,.article-time{
+	color:#666;
+	font-size:16px;	
+	font-weight:normal;
+	display:inline-block;
+	}
+.article-author{
+	padding:0 10px;
+	}
+.article-category{
+	 padding:0 10px;
+	 border-left:#666 1px solid;
+	}
+.article-time{
+    padding:0 10px;
+	border-left:#666 1px solid;     
+	 }
+.article-poster{
+	/*position:absolute;
+	left:0;
+	top:0;
+	bottom:0;*/
+	height:100%;
+	font-size:0;
+	}
+.article-poster img{
+	height:100%;
+	}
+	
+.article-content{ 
+	background:#fff;
+    color: #666666;
+    font-size:16px;
+    width:260px;
+	position:absolute;
+	top:0;
+	left:540px;
+	bottom:150px;
+    padding:0 0 20px 40px;
+    -webkit-column-count:auto;
+    -webkit-column-gap:40px;
+    -webkit-column-width:260px;
+    -webkit-column-height:400px;
+    -moz-column-count:auto;
+    -moz-column-gap:40px;
+    -moz-column-width:260px;
+    -moz-column-height:400px;
+	line-height:2em;
+	letter-spacing:2px;
+	z-index:0.5;
+
+}
+.article-content::first-letter{
+ 	display:inline-block;	
+	font-size:32px;
+	color:#E83A00; 
+}
+.article-content img{
+	max-width:100%;
+	}
+.videoslide{
+	text-indent:0;
+	display:inline-block;
+	position:relative;
+	}
+.videoslide:before
+{
+	content:"";
+	background:url(../asset.pad/video_play.png) no-repeat;
+	width:60px;
+	height:60px;
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin:-30px 0 0 -30px;
+}
+.article-content figcaption{
+	color: #ca2e3a;
+	font-size: 12px;
+	font-style: italic;
+	line-height: 1.4em;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+    	text-align:center;
+}
