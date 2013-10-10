@@ -28,6 +28,22 @@ ZY.UIManager=function(){
 	var lastPageY=0;
     var musicPlaying=true; //音乐是否应该播放
 
+    var navH=$("#zy_nav").height();
+    var tpH=$(".zy_top_post").height();
+    var ftH=$(".zy_featured").height();
+    var landScapeBG=$("#zy_landscape_theme .zy_theme_bg_content");
+    var peopleBG=$("#zy_people_theme .zy_theme_bg_content");
+    var artifactBG=$("#zy_artifact_theme .zy_theme_bg_content");
+    var communityBG=$("#zy_community_theme .zy_theme_bg_content");
+
+    var tpY=$(".zy_top_post").offset().top;
+    var ftY=$(".zy_featured").offset().top;
+    var landScapeY=$("#zy_landscape").offset().top;
+    var peopleY=$("#zy_people").offset().top;
+    var artifactY=$("#zy_artifact").offset().top;
+    var communityY=$("#zy_community").offset().top;
+    var footerY=$(".zy_footer").offset().top;
+
     //私有方法
 	var showBlackout=function(zindex){
 			lastBlackoutZ=$("#zy_wrap").css("z-index");
@@ -205,56 +221,81 @@ ZY.UIManager=function(){
              if(data["background"]){
                 //第一次才换背景
                 if(data["background"]["type"]!="mp4"){
-                    //$(target).find(".zy_theme_bg_content").attr("src",data["background"]["filepath"]);
+
+                    //使用append比使用html函数的过度效果要好。
 					$(target).append($("<img class='zy_theme_bg_content' src='"+data["background"]["filepath"]+"' onload='ZY.UIManager.fadingIn(this)' />"));
                 }else if(!ZY.Config.deviceCode.iOS){
                     //视频作为背景
 					$(target).append($("<video class='zy_theme_bg_content' autoplay loop muted oncanplay='ZY.UIManager.fadingIn(this)'><source src='"+data["background"]["filepath"]+"' type='video/mp4' /></video>"));
                 }
+
+                 //重新获取一下背景,这样才能将新添加的背景获取出来.
+                 landScapeBG=$("#zy_landscape_theme .zy_theme_bg_content");
+                 peopleBG=$("#zy_people_theme .zy_theme_bg_content");
+                 artifactBG=$("#zy_artifact_theme .zy_theme_bg_content");
+                 communityBG=$("#zy_community_theme .zy_theme_bg_content");
             }
         },
-		bindHScrollOnWheel:function(targetID){
-			var target=document.getElementById(targetID)
-			var mousewheelEvt="onwheel" in document.createElement("div") ? "wheel" : 
-				document.onmousewheel !== undefined ? "mousewheel" : 
-				"DOMMouseScroll"; 
-				
-			target.addEventListener(mousewheelEvt, function(evt) {
-				var evt = window.event || evt; 
-				//var delta = Math.max(-1, Math.min(1, (evt.wheelDelta || -evt.detail)));
-				var delta =evt.deltaY || evt.wheelDelta*-1/40 || evt.detail;
-				console.log($(this).scrollLeft()+delta)
-				$(this).scrollLeft($(this).scrollLeft()+delta*50)
-				//var target=$(targetID)
-				//$(this).stop();
-				//$(this).animate({"scrollLeft":$(this).scrollLeft()+(delta > 0 ? 1000 : -1000)},200,"swing")
-				evt.preventDefault();
-				evt.stopPropagation();
-				return false;
-    		});
+		bindHScrollOnWheel:function(target){
+            var mousewheelEvt= document.onmousewheel !== undefined ? "mousewheel" : "DOMMouseScroll";
+            var mousewheelHandler=function (evt) {
+                var left=0;
+                evt = window.event || evt;
+                if(evt.wheelDelta <0 || evt.detail>0){
+                    left=target.scrollLeft+500;
+                }else{
+                    left=target.scrollLeft-500;
+                }
+                TweenLite.to(target, 0.5, {scrollTo:{x:left}});
+
+                //兼容ie
+                if(evt.preventDefault){
+                    evt.preventDefault();
+                    //evt.stopPropagation(); //如果调用了setWheelScrollSpeed，方法，则需要阻止冒泡到window
+                }else{
+                    evt.returnValue=false;
+                    //evt.cancelBubble = false;
+                }
+                //evt.preventDefault();
+
+            };
+            target.addEventListener(mousewheelEvt, mousewheelHandler);
 		},
+
+        /**
+         * 设置window滚动速度
+         */
+        setWheelScrollSpeed:function(){
+            var mousewheelEvt= document.onmousewheel !== undefined ? "mousewheel" : "DOMMouseScroll";
+            var mousewheelHandler=function (evt) {
+                var top=$(window).scrollTop();
+                evt = window.event || evt;
+                if(evt.wheelDelta <0 || evt.detail>0){
+                    $(window).scrollTop(top+100);
+                }else{
+                    $(window).scrollTop(top-100);
+                }
+                //TweenLite.killTweensOf(window);
+                //TweenLite.to(window, 0.5, {scrollTo:{y:top}});
+
+                //兼容ie
+                if(evt.preventDefault){
+                    evt.preventDefault();
+                }else{
+                    evt.returnValue=false;
+                }
+                //evt.preventDefault();
+            };
+            window.addEventListener(mousewheelEvt, mousewheelHandler);
+        },
 		fadingIn:function(target){
 			$(target).css("opacity",1)
 		},
 		scrollingHandler:function(){
 			
 			var sy=window.pageYOffset;
-			var navH=$("#zy_nav").height();
 			var winH=$(window).height();
-			var tpH=$(".zy_top_post").height();
-			var ftH=$(".zy_featured").height();
-			var landScapeBG=$("#zy_landscape_theme .zy_theme_bg_content");
-			var peopleBG=$("#zy_people_theme .zy_theme_bg_content");
-			var artifactBG=$("#zy_artifact_theme .zy_theme_bg_content");
-			var communityBG=$("#zy_community_theme .zy_theme_bg_content");
-			
-			var tpY=$(".zy_top_post").offset().top;
-			var ftY=$(".zy_featured").offset().top;
-			var landScapeY=$("#zy_landscape").offset().top;
-			var peopleY=$("#zy_people").offset().top;
-			var artifactY=$("#zy_artifact").offset().top;
-			var communityY=$("#zy_community").offset().top;
-			var footerY=$(".zy_footer").offset().top;
+
 			
 			//导航边栏跟随
 			if(sy<=ftY){
@@ -264,7 +305,7 @@ ZY.UIManager=function(){
 			
 			//设置顶部菜单状态
 			//首先重置所有菜单
-			$(".zy_top_nav ul li a").removeClass("active")
+			$(".zy_top_nav ul li a").removeClass("active");
 			if(sy<=landScapeY){
 				
 			}else if(sy<=peopleY){
@@ -363,19 +404,8 @@ ZY.UIManager=function(){
                     nextBtn.addClass("zy_disable");
                 }
             }
-        },
-		wheelScrollModeOn:function(){
-			var mousewheelEvt="onwheel" in document.createElement("div") ? "wheel" : 
-				document.onmousewheel !== undefined ? "mousewheel" : 
-				"DOMMouseScroll"; 
-			var mousewheelHandler=function (evt) {
-				var evt = window.event || evt; 
-				var delta =evt.deltaY || evt.wheelDelta*-1/40 || evt.detail;
-				TweenLite.killTweensOf(window)
-				TweenLite.to(window, 0.5, {scrollTo:{y:window.pageYOffset+(delta > 0 ? 500 : -500)}});				
-    		}	
-			window.addEventListener(mousewheelEvt, mousewheelHandler);
-			}
-//类属性及方法定义结束
-		}
-	}()
+        }
+
+    }
+
+}();

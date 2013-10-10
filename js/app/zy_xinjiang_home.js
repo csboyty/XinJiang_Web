@@ -97,7 +97,7 @@ $(document).ready(function() {
     });
 
     /*=====展示单篇文章页面，相应鼠标横向滚动事件=================*/
-	ZY.UIManager.bindHScrollOnWheel("zy_article_content")
+	ZY.UIManager.bindHScrollOnWheel($("#zy_article_content")[0]);
 		
     /*=====iOS触屏滚动支持=================*/
 	if(ZY.Config.deviceCode.iOS){
