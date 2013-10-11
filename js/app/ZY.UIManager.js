@@ -23,20 +23,18 @@ ZY.UIManager.wheelScrollModeOn() 启动页面滚轮模式
 */
 var ZY=ZY||{};
 ZY.UIManager=function(){
+
 	//私有属性
 	var lastBlackoutZ=0;
-	var lastPageY=0;
     var musicPlaying=true; //音乐是否应该播放
 
+    var rect="";//clip的rect
     var navH=$("#zy_nav").height();
-    var tpH=$(".zy_top_post").height();
-    var ftH=$(".zy_featured").height();
     var landScapeBG=$("#zy_landscape_theme .zy_theme_bg_content");
     var peopleBG=$("#zy_people_theme .zy_theme_bg_content");
     var artifactBG=$("#zy_artifact_theme .zy_theme_bg_content");
     var communityBG=$("#zy_community_theme .zy_theme_bg_content");
 
-    var tpY=$(".zy_top_post").offset().top;
     var ftY=$(".zy_featured").offset().top;
     var landScapeY=$("#zy_landscape").offset().top;
     var peopleY=$("#zy_people").offset().top;
@@ -225,7 +223,8 @@ ZY.UIManager=function(){
                     //使用append比使用html函数的过度效果要好。
 					$(target).append($("<img class='zy_theme_bg_content' src='"+data["background"]["filepath"]+"' onload='ZY.UIManager.fadingIn(this)' />"));
                 }else if(!ZY.Config.deviceCode.iOS){
-                    //视频作为背景
+
+                    //视频作为背景，由于使用了img的clip，这里最好不做处理
 					$(target).append($("<video class='zy_theme_bg_content' autoplay loop muted oncanplay='ZY.UIManager.fadingIn(this)'><source src='"+data["background"]["filepath"]+"' type='video/mp4' /></video>"));
                 }
 
@@ -234,7 +233,7 @@ ZY.UIManager=function(){
                  peopleBG=$("#zy_people_theme .zy_theme_bg_content");
                  artifactBG=$("#zy_artifact_theme .zy_theme_bg_content");
                  communityBG=$("#zy_community_theme .zy_theme_bg_content");
-            }
+             }
         },
 		bindHScrollOnWheel:function(target){
             var mousewheelEvt= document.onmousewheel !== undefined ? "mousewheel" : "DOMMouseScroll";
@@ -294,7 +293,10 @@ ZY.UIManager=function(){
 		scrollingHandler:function(){
 			
 			var sy=window.pageYOffset;
+
+            //窗口可能放大缩小，每次都需要获取
 			var winH=$(window).height();
+            var winW=$(window).width();
 
 			
 			//导航边栏跟随
@@ -319,59 +321,107 @@ ZY.UIManager=function(){
 			}
 			
 			//设置背景状态
+            /*
+             * 背景动画说明:采用了img的clip属性，
+             *在需要显示背景的区域往下滚动的时候让显示区域不断的变小
+             * 在向上滚动的时候，让显示区域不断的变大
+             * 变化以背景图片高度为基准，以滚动的top与模块的top差值为变量
+             * 720-（sy-landScapey)+100   720是背景图片高度，sy是滚动了的高度，landScapeY是模块的top值,
+             * 100是突然增大显示区域导致白色闪屏的处理，多100，那么增加时的闪动会在另外一层的下面，这样就不影响视觉
+             * 那么向下滚动时sy不断增大，整体值是不断减小的，向上滚动时，sy不断减小，整体值不断增大
+             * 在非改变区域的时候，去掉clip属性
+             *注意：背景图的高度是根据宽度变化的，可能会大于720，最大为一屏幕高，
+             *720-（sy-landScapey)+100 可能大于一屏幕高，并不影响显示，因为当clip的显示高度大于实际高度时，只会显示成实际高度
+             */
 			if(sy>landScapeY-winH && sy<=landScapeY+720){
 				if(!ZY.Config.deviceCode.iOS){
-					landScapeBG.addClass("zy_bg_fixed");
+                    landScapeBG.addClass("zy_bg_fixed");
+
+                    //滚动的时候使用clip
+                    rect="rect(0px "+winW+"px "+(720-(sy-landScapeY)+100)+"px 0px)";
+                    landScapeBG.css("clip",rect);
 				}
+
 				if(!ZY.DataManager.landscapeLoaded){
-				/*====获取第1个分类(风景）文章，等宽340===*/
-     			ZY.DataManager.zy_get_posts($("#zy_landscape_contain"),240,3,ZY.DataManager.lastLandscapeDate,true);
-				ZY.DataManager.landscapeLoaded=true;
+
+                    //获取第1个分类(风景）文章，等宽340
+                    ZY.DataManager.zy_get_posts($("#zy_landscape_contain"),240,3,ZY.DataManager.lastLandscapeDate,true);
+                    ZY.DataManager.landscapeLoaded=true;
 				}
 								
-			}else{				
-				landScapeBG.removeClass("zy_bg_fixed");				
+			}else{
+                if(!ZY.Config.deviceCode.iOS){
+                    landScapeBG.removeClass("zy_bg_fixed");
+                    landScapeBG.css("clip","");
+                }
 			}
 			
 			if(sy>peopleY-winH && sy<=peopleY+720){
 				if(!ZY.Config.deviceCode.iOS){
-					peopleBG.addClass("zy_bg_fixed");
+                    peopleBG.addClass("zy_bg_fixed");
+
+                    //滚动的时候使用clip
+                    rect="rect(0px "+winW+"px "+(720-(sy-peopleY)+100)+"px 0px)";
+                    peopleBG.css("clip",rect);
 				}
 				
 				if(!ZY.DataManager.peopleLoaded){
-				/*====获取第2个分类（人文）文章,左边有一个大的===*/
-    			ZY.DataManager.zy_get_posts($("#zy_people_contain"),340,2,ZY.DataManager.lastPeopleDate,true);
-				ZY.DataManager.peopleLoaded=true;
+
+                    //获取第2个分类（人文）文章,左边有一个大的
+                    ZY.DataManager.zy_get_posts($("#zy_people_contain"),340,2,ZY.DataManager.lastPeopleDate,true);
+                    ZY.DataManager.peopleLoaded=true;
 				}
 			}else{
-				peopleBG.removeClass("zy_bg_fixed");
+                if(!ZY.Config.deviceCode.iOS){
+                    peopleBG.removeClass("zy_bg_fixed");
+                    peopleBG.css("clip","");
+                }
 			}
 			
 			if(sy>artifactY-winH && sy<=artifactY+720){
 				if(!ZY.Config.deviceCode.iOS){
-					artifactBG.addClass("zy_bg_fixed");
+                    artifactBG.addClass("zy_bg_fixed");
+
+                    //滚动的时候使用clip
+                    rect="rect(0px "+winW+"px "+(720-(sy-artifactY)+100)+"px 0px)";
+                    artifactBG.css("clip",rect);
 				}
+
 				if(!ZY.DataManager.artifactLoaded){
-				/*====获取第3个分类(物语）文章，等宽400===*/
-    			ZY.DataManager.zy_get_posts($("#zy_artifact_contain"),400,5,ZY.DataManager.lastArtifactDate,true);
-				ZY.DataManager.artifactLoaded=true;
+
+                    //获取第3个分类(物语）文章，等宽400
+                    ZY.DataManager.zy_get_posts($("#zy_artifact_contain"),400,5,ZY.DataManager.lastArtifactDate,true);
+                    ZY.DataManager.artifactLoaded=true;
 				}
 			}else{
-				artifactBG.removeClass("zy_bg_fixed");
+                if(!ZY.Config.deviceCode.iOS){
+                    artifactBG.removeClass("zy_bg_fixed");
+                    artifactBG.css("clip","");
+                }
 			}
+
 			if(sy>communityY-winH && sy<=communityY+720){
 				if(!ZY.Config.deviceCode.iOS){
-					communityBG.addClass("zy_bg_fixed");
+                    communityBG.addClass("zy_bg_fixed");
+
+                    //滚动的时候使用clip
+                    rect="rect(0px "+winW+"px "+(720-(sy-communityY)+100)+"px 0px)";
+                    communityBG.css("clip",rect);
 				}
 				
 				if(!ZY.DataManager.communityLoaded){
-				/*====获取第4个分类(社区）文章，等宽400===*/
-     			ZY.DataManager.zy_get_posts($("#zy_community_contain"),340,4,ZY.DataManager.lastCommunityDate,true);
-				ZY.DataManager.communityLoaded=true;
+
+                    //获取第4个分类(社区）文章，等宽400
+                    ZY.DataManager.zy_get_posts($("#zy_community_contain"),340,4,ZY.DataManager.lastCommunityDate,true);
+                    ZY.DataManager.communityLoaded=true;
 				}
 			}else{
-				communityBG.removeClass("zy_bg_fixed");
+                if(!ZY.Config.deviceCode.iOS){
+                    communityBG.removeClass("zy_bg_fixed");
+                    communityBG.css("clip","");
+                }
 			}
+
         },
 
         /**

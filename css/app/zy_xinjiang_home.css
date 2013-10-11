@@ -406,6 +406,7 @@ a.zy_music_play:hover{
 	position:relative;
 	width:100%;
 	overflow:hidden;
+	z-index:5;
 }
 .zy_top_post_poster{
     width: 100%;
@@ -1522,4 +1523,19 @@ a.zy_music_play:hover{
 }
 .imgcaption-slide  span{
     font-size: 21px;
+}
+
+@media screen and (min-width: 1900px) {
+    .zy_featured_articles li .date{
+        display: none;
+    }
+    .zy_featured_articles li .title{
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 2150px) {
+    .zy_featured_articles li .title{
+        display: none;
+    }
 }

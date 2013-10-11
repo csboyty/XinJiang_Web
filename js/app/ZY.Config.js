@@ -12,6 +12,6 @@ ZY.Config=function(){
             },
 			deviceCode:{
 				iOS : navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false
-				}
-		}
-	}();
+            }
+    }
+}();
