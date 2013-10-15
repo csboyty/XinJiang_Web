@@ -9,6 +9,15 @@ body{
 .zy_hidden,.zy_disable{
     display: none;
 }
+.hasVideo:before{
+    content:"";
+    background: url(../../images/xinjiang/hasvideo.png) no-repeat;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 0px;
+    top:0px;
+}
 /*固定背景样式*/
 .zy_bg_fixed{
 	position:fixed !important;
