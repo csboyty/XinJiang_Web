@@ -1441,7 +1441,7 @@ a.zy_music_play:hover{
 .videoslide:before
 {
     content:"";
-    background:url(../../images/xinjiang/hasvideo.png) no-repeat -562px -494px;
+    background:url(../../images/xinjiang/hasvideo.png) no-repeat;
     width:80px;
     height:80px;
     position:absolute;
