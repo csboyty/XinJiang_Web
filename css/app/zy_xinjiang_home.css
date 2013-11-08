@@ -1037,6 +1037,9 @@ a.zy_music_play:hover{
 	top:120px;
 	left:-300px;
 }
+.zy_project_sponsors> li{
+	list-style:none;
+	}
 .zy_project_sponsors .zy_logo_mkmj{
 	width:150px;
 	height:150px;
