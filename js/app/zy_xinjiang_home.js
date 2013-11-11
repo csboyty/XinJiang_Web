@@ -70,13 +70,17 @@ $(document).ready(function() {
                         $("#zy_music_audio").attr("src",musics[0].music_path);//设置音乐路径
                         $("#zy_music_author").html("Directed by "+musics[0].music_author);
                         $("#zy_music_title").html(musics[0].music_title);
+
+                        ZY.UIManager.musicLiLength=musics.length;
                     }else{
-                        ZY.UIManager.popOutMsg(ZY.Config.errorCode.musicError)
+                        $("#zy_music_title").text(ZY.Config.errorCode.hasNoMusic);
                     }
+                }else{
+                    ZY.UIManager.popOutMsg(ZY.Config.errorCode.musicError);
                 }
             },
 			error: function(){
-					ZY.UIManager.popOutMsg(ZY.Config.errorCode.connectionError)
+					ZY.UIManager.popOutMsg(ZY.Config.errorCode.connectionError);
 				}
         });
     })();

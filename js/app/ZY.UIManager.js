@@ -58,13 +58,14 @@ ZY.UIManager=function(){
         };
 		
 	//公共属性及方法定义
-	return{    
+	return{
+        musicLiLength:0,
 		scrollToTarget:function(target){
 			var top=$(target).offset().top;
 			if(top!= undefined){
 				//$("body,html").stop();
 				//$("body,html").animate({'scrollTop':top},1000,"swing");
-				TweenLite.killTweensOf(window)
+				TweenLite.killTweensOf(window);
 				TweenLite.to(window, 1, {scrollTo:{y:top+10, x:0}});
             }
 			
@@ -142,12 +143,15 @@ ZY.UIManager=function(){
 			});
         },
 		toggleMusicPlayPause:function(){
-			if($("#zy_music_control").hasClass("zy_music_play")){
-           		this.playMusic();
-       		}else if ($("#zy_music_control").hasClass("zy_music_pause")){
-            	this.pauseMusic();
+            if(this.musicLiLength!=0){
+                if($("#zy_music_control").hasClass("zy_music_play")){
+                    this.playMusic();
+                }else if ($("#zy_music_control").hasClass("zy_music_pause")){
+                    this.pauseMusic();
 
+                }
             }
+
         },
 		pauseMusic:function(){
             var audio=$("#zy_music_audio");
@@ -164,13 +168,16 @@ ZY.UIManager=function(){
             $("#zy_music_control").addClass("zy_music_pause").removeClass("zy_music_play");
 		},
 		nextMusic:function(){
-			$("#zy_music_process_value").stop().width("0%");
-        	var target=$(".active_music").next().length!=0?$(".active_music").next():$("#zy_music_list li:eq(0)");
-			$(".active_music").removeClass("active_music");
-			$("#zy_music_audio").attr("src",target.html());//设置音乐路径
-			$("#zy_music_author").html("Directed by "+target.data("music-author"));
-			$("#zy_music_title").html(target.data("music-title"));
-			target.addClass("active_music");
+            if(this.musicLiLength!=0){
+                $("#zy_music_process_value").stop().width("0%");
+                var target=$(".active_music").next().length!=0?$(".active_music").next():$("#zy_music_list li:eq(0)");
+                $(".active_music").removeClass("active_music");
+                $("#zy_music_audio").attr("src",target.html());//设置音乐路径
+                $("#zy_music_author").html("Directed by "+target.data("music-author"));
+                $("#zy_music_title").html(target.data("music-title"));
+                target.addClass("active_music");
+            }
+
 
         },
 		popOutInit:function(){

@@ -195,8 +195,6 @@ ZY.DataManager={
             },
             success:function(response){
 
-                ZY.UIManager.hideLoadingSpinner($(targetContain));
-
                 //要保存数据，并且添加数据到html
                 if(response.success){
 
@@ -208,9 +206,10 @@ ZY.DataManager={
 
                 }else{
                     //提示网络异常的错误
-                    ZY.UIManager.hideLoadingSpinner($(targetContain));
                     ZY.UIManager.popOutMsg(ZY.Config.errorCode.postsError)
                 }
+
+                ZY.UIManager.hideLoadingSpinner($(targetContain));
 
             },
             error:function(){
