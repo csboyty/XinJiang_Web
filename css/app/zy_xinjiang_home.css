@@ -1408,6 +1408,14 @@ a.zy_music_play:hover{
     -moz-column-gap:40px;
     -moz-column-width:260px;
     -moz-column-height:400px;
+    -ms-column-count:auto;
+    -ms-column-gap:40px;
+    -ms-column-width:260px;
+    -ms-column-height:400px;
+    column-count:auto;
+    column-gap:40px;
+    column-width:260px;
+    column-height:400px;
     line-height:2em;
     letter-spacing:2px;
     z-index:1;

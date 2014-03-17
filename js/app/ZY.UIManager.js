@@ -26,7 +26,7 @@ ZY.UIManager=function(){
 
 	//私有属性
 	var lastBlackoutZ=0;
-    var musicPlaying=true; //音乐是否应该播放
+    var musicPlaying=false; //音乐是否应该播放
 
     var rect="";//clip的rect
     var navH=$("#zy_nav").height();
