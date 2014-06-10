@@ -256,8 +256,9 @@ $(document).ready(function() {
 	});
 	//加载后，激发一下scroll事件以更新页面的显示状态
 	$(window).trigger("scroll");
+
 	//启动页面滚轮模式
-	//ZY.UIManager.wheelScrollModeOn()
+	//ZY.UIManager.setWheelScrollSpeed();
 	
     //window的resize事件，在这个事件里面需要重新设置每个container的宽度
     var resizeTimer=null;

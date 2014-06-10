@@ -257,10 +257,10 @@ ZY.UIManager=function(){
                 //兼容ie
                 if(evt.preventDefault){
                     evt.preventDefault();
-                    //evt.stopPropagation(); //如果调用了setWheelScrollSpeed，方法，则需要阻止冒泡到window
+                    evt.stopPropagation(); //如果调用了setWheelScrollSpeed，方法，则需要阻止冒泡到window
                 }else{
                     evt.returnValue=false;
-                    //evt.cancelBubble = false;
+                    evt.cancelBubble = false;
                 }
                 //evt.preventDefault();
 
