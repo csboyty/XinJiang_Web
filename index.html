@@ -8,7 +8,7 @@
     <meta name="keywords" content="社会创新, 新通道, 文化产品创新, 文化产品设计，新疆，疆域" />
     <title>疆域</title>
     <link rel="stylesheet" type="text/css"
-          href="css/app/zy_xinjiang_home.min.css"/>
+          href="css/app/zy_xinjiang_home.css"/>
     <script type="text/javascript" src="js/lib/modernizr.js"></script>
     <script type="text/javascript">
 		//加载资源
@@ -30,9 +30,15 @@
 				yep:[
 					"js/lib/jquery-1.10.2.min.js",
 					"js/lib/juicer-min.js",
-					"js/lib/greensock/TweenMax.min.js",
+					"js/lib/greensock/TweenLite.min.js",
+                    "js/lib/greensock/EasePack.min.js",
+                    "js/lib/greensock/Draggable.min.js",
+                    "js/lib/greensock/ThrowPropsPlugin.js",
 					"js/lib/greensock/ScrollToPlugin.min.js",
-                    "js/app/index.min.js"
+                    "js/app/ZY.Config.js",
+                    "js/app/ZY.DataManager.js",
+                    "js/app/ZY.UIManager.js",
+                    "js/app/zy_xinjiang_home.js"
                 ],
                 callback:function(key,testResult){
                     if(testResult!==true&&key=="js/app/ZY.UIManager.js"){
@@ -43,7 +49,6 @@
 		]);
 		
     </script>
-    <script src="phonegap.js"></script>
 
 </head>
 <body>
@@ -97,26 +102,8 @@
             <li><a href="#zy_community">社区</a></li>
    		</ul>
     </nav>
+
 <div id="zy_main_wrapper" class="zy_main_wrapper">
-
-<!--背景层，所有背景存放在这里
-<section class="zy_theme_background">
-	<div id="zy_landscape_theme" class="zy_theme_bg zy_hidden">
-    <img class="zy_theme_bg_content zy_theme_bg_default" src="images/default_bg/02.jpg">
-    </div>
-    <div id="zy_people_theme" class="zy_theme_bg zy_hidden">
-    <img class="zy_theme_bg_content zy_theme_bg_default" src="images/default_bg/03.jpg" />
-    </div>
-    <div id="zy_artifact_theme" class="zy_theme_bg zy_hidden">
-    <img class="zy_theme_bg_content zy_theme_bg_default" src="images/default_bg/04.jpg" />
-    </div>
-    <div id="zy_community_theme" class="zy_theme_bg zy_hidden">
-    <img class="zy_theme_bg_content zy_theme_bg_default" src="images/default_bg/05.jpg" />
-    </div>
-</section>
--->
-
-
 <!--置顶文章部分-->
 <section id="zy_top_post" class="zy_top_post">
     <div id="zy_top_post_poster" class="zy_top_post_poster">
@@ -277,7 +264,9 @@
             </div>
         <a id="zy_artifact_next" class="zy_contain_next">下一页</a>
     </section>
-    <h4 class="zy_exhibition">参观我们的实体展厅：湖南省长沙市岳麓大道233号，湖南科技大厦1层，+86 731 88988607</h4>
+    <h4 class="zy_exhibition">
+       <a class="zy_address_link" href="http://j.map.baidu.com/wKRBt" target="_blank">参观我们的实体展厅：湖南省长沙市岳麓大道233号，湖南科技大厦1层，+86 731 88988607</a>
+    </h4>
 </section>
 <!-- ********************************社区******************************** -->
 <section id="zy_community" class="zy_community">	

@@ -103,6 +103,23 @@ $(document).ready(function() {
     /*=====展示单篇文章页面，相应鼠标横向滚动事件=================*/
 	ZY.UIManager.bindHScrollOnWheel($("#zy_article_content")[0]);
 		
+    /*触屏滚动
+    
+    Draggable.create(".zy_article_content", {type:"scrollLeft", edgeResistance:0.5, throwProps:true, lockAxis:true}); */   
+    Draggable.create(".zy_list_container", {
+        type:"scrollLeft", 
+        edgeResistance:0.5, 
+        throwProps:true, 
+        lockAxis:true,
+        onClick:function(evt){
+        
+        },
+        onDragEnd:function(evt){
+        
+        }
+    });
+   
+    
     /*=====iOS触屏滚动支持=================*/
 	if(ZY.Config.deviceCode.iOS){
 		$(".zy_article_content").addClass("zy_touch_hscroll");

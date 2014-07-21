@@ -63,10 +63,8 @@ ZY.UIManager=function(){
 		scrollToTarget:function(target){
 			var top=$(target).offset().top;
 			if(top!= undefined){
-				//$("body,html").stop();
-				//$("body,html").animate({'scrollTop':top},1000,"swing");
 				TweenLite.killTweensOf(window);
-				TweenLite.to(window, 1, {scrollTo:{y:top+10, x:0}});
+				TweenLite.to(window, 1, {scrollTo:{y:top+10, x:0},ease:Quad.easeOut});
             }
 			
         },		
