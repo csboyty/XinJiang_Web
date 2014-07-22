@@ -164,7 +164,7 @@ ZY.DataManager={
             if(length<limit){
 
                 //如果返回的个数小于请求的个数，则要设置不能再加载的标志
-               	nextBtn.addClass("zy_no_more");
+               	//nextBtn.addClass("zy_no_more");
             }
 
         }
@@ -181,7 +181,7 @@ ZY.DataManager={
         var limit=this.zy_set_limit(targetContain,width,categoryId,isFirst);
 		
 		//首先隐藏下一页按钮，获取到数据后再显示
-		$(targetContain).find(".zy_contain_next").addClass("zy_disable")
+		//$(targetContain).find(".zy_contain_next").addClass("zy_disable")
 
         //请求数据ajax
         $.ajax({
@@ -252,7 +252,7 @@ ZY.DataManager={
         /*
          * 显示左右按钮函数
          * */
-		var container=$(targetContain).find(".zy_list_container")
+		/*var container=$(targetContain).find(".zy_list_container")
 		var list=$(targetContain).find(".zy_list_container>ul")
 		var nextBtn=$(targetContain).find(".zy_contain_next")
 		var prevBtn=$(targetContain).find(".zy_contain_prev")
@@ -269,7 +269,7 @@ ZY.DataManager={
 				prevBtn.css("opacity",0);
 				nextBtn.css("opacity",0);
             }
-        );
+        );*/
     },
 
     show_next_animate:function(targetContain,width,categoryId,lastDate){
@@ -296,7 +296,7 @@ ZY.DataManager={
                 //显示前面一个按钮
                 prevBtn.removeClass("zy_disable");
 
-                if(categoryId==3){
+                /*if(categoryId==3){
 
                     //风景有个大图，是其他的三倍
                     if(parseInt(list.css("left"))<=-(list.find("li").length-limit+2)*width){
@@ -306,9 +306,9 @@ ZY.DataManager={
                 }else{
                     if(parseInt(list.css("left"))<=-(list.find("li").length-limit)*width){
                         //如果left的值已经到了总数的前一页，那么就让这个按钮disable。
-                        nextBtn.addClass("zy_disable");
+                       nextBtn.addClass("zy_disable");
                     }
-                }
+                }*/
 
             });
         }else{
@@ -351,7 +351,7 @@ ZY.DataManager={
                     //去掉后面按钮的无加载标志
                     nextBtn.removeClass("zy_disable");
                 }
-                prevBtn.addClass("zy_disable");
+                //prevBtn.addClass("zy_disable");
             });
         }else{
             if(categoryId==3){
@@ -376,9 +376,9 @@ ZY.DataManager={
                 nextBtn.removeClass("zy_disable");
 
                 //如果移动完后，恰好left为0，那么前一页按钮要禁用
-                if(parseInt(list.css("left"))==0){
+                /*if(parseInt(list.css("left"))==0){
                     prevBtn.addClass("zy_disable");
-                }
+                }*/
             });
 
         }
