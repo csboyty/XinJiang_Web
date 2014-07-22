@@ -103,33 +103,69 @@ $(document).ready(function() {
     /*=====展示单篇文章页面，相应鼠标横向滚动事件=================*/
 	ZY.UIManager.bindHScrollOnWheel($("#zy_article_content")[0]);
 		
-    /*触屏滚动
-    
-    Draggable.create(".zy_article_content", {type:"scrollLeft", edgeResistance:0.5, throwProps:true, lockAxis:true}); */   
-    Draggable.create(".zy_list_container", {
+    /*触屏滚动 */
+    //内容详情滚动
+    Draggable.create(".zy_article_content", {
         type:"scrollLeft", 
         edgeResistance:0.5, 
         throwProps:true, 
         lockAxis:true,
         onClick:function(evt){
         
-        },
+        },        
         onDragEnd:function(evt){
         
         }
     });
+    //内容列表滚动，改
+    Draggable.create(".zy_list_container", {
+        type:"scrollLeft", 
+        edgeResistance:0.5, 
+        throwProps:true, 
+        lockAxis:true,
+        onClick:function(evt){
+            var post_type;
+            var clickTarget=evt.target || evt.srcElement 
+            clickTarget= clickTarget.nodeName == "LI"? $(clickTarget):$(clickTarget).parents("li")
+            
+            if(clickTarget.prop("tagName")=="LI"){
+                post_id=$(clickTarget).data("zy-post-id");
+                post_type=$(clickTarget).data("zy-post-type");
+                ZY.UIManager.showArticle(post_id,post_type);
+            }            
+            
+        },
+        onDragStart:function(evt){
+            
+        
+        },
+        onDragEnd:function(evt){			
+            var clickTarget=evt.target || evt.srcElement
+            clickTarget=$(clickTarget).parents(".zy_list_container")
+            var containerID=clickTarget.attr("id")
+            switch (containerID){
+                case "zy_landscape_list_container":
+                    ZY.DataManager.zy_get_posts(
+                        $("#zy_landscape_contain"),240,3,ZY.DataManager.lastLandscapeDate,false);
+                    break;
+                case "zy_people_list_container":
+                    ZY.DataManager.zy_get_posts(
+                        $("#zy_people_contain"),340,2,ZY.DataManager.lastPeopleDate,false);
+                    break;
+                case "zy_artifact_list_container":
+                    ZY.DataManager.zy_get_posts(
+                        $("#zy_artifact_contain"),400,5,ZY.DataManager.lastArtifactDate,false);
+                    break;
+                case "zy_community_list_container":
+                    ZY.DataManager.zy_get_posts(
+                        $("#zy_community_contain"),340,4,ZY.DataManager.lastCommunityDate,false);
+                    break;
+            }
+        }
+    });
    
     
-    /*=====iOS触屏滚动支持=================*/
-	if(ZY.Config.deviceCode.iOS){
-		$(".zy_article_content").addClass("zy_touch_hscroll");
-		$("#zy_landscape_list_container").addClass("zy_touch_hscroll");
-		$("#zy_people_list_container").addClass("zy_touch_hscroll");
-		$("#zy_artifact_list_container").addClass("zy_touch_hscroll");
-		$("#zy_community_list_container").addClass("zy_touch_hscroll");		
-	}
-
-    //最顶上一篇文章的点击load事件
+        //最顶上一篇文章的点击load事件
     $(document).on("click","#zy_top_post_title",function(){
 		var url="";
         post_id=$(this).data("zy-post-id");
@@ -141,95 +177,30 @@ $(document).ready(function() {
 	//音乐控制
 	//初始化音乐播放器，绑定相关事件
     ZY.UIManager.initMusicPlayer();
-
-
-   /*====获取第一个分类（人文）文章,左边有一个大的===*/
-   // ZY.DataManager.zy_get_posts($("#zy_people_contain"),340,2,ZY.Config.lastPeopleDate,true);
-
-    /*====获取第二个分类(风景）文章，等宽340===*/
-   // ZY.DataManager.zy_get_posts($("#zy_landscape_contain"),240,3,ZY.Config.lastLandscapeDate,true);
-
-    /*====获取第三个分类(社区）文章，等宽400===*/
-    // ZY.DataManager.zy_get_posts($("#zy_community_contain"),340,4,ZY.Config.lastCommunityDate,true);
-
-    /*====获取第4个分类(物语）文章，等宽400===*/
-    //ZY.DataManager.zy_get_posts($("#zy_artifact_contain"),400,5,ZY.Config.lastArtifactDate,true);
-
+    
     //风景显示左右按钮
-    ZY.DataManager.add_hover_event($("#zy_landscape_contain"),$("#zy_landscape_list"),$("#zy_landscape_prev"),
-        $("#zy_landscape_next"));
+	$("#zy_landscape_contain").hover(
+		function(){$("#zy_landscape_contain>a").css("opacity",1)},
+		function(){$("#zy_landscape_contain>a").css("opacity",0)}
+	)    
 
     //人文部分显示左右按钮
-    ZY.DataManager.add_hover_event($("#zy_people_contain"),$("#zy_people_list"),$("#zy_people_prev"),
-        $("#zy_people_next"));
+	$("#zy_people_contain").hover(
+		function(){$("#zy_people_contain>a").css("opacity",1)},
+		function(){$("#zy_people_contain>a").css("opacity",0)}
+	)
 
     //物语部分显示左右按钮
-    ZY.DataManager.add_hover_event($("#zy_artifact_contain"),$("#zy_artifact_list"),$("#zy_artifact_prev"),
-        $("#zy_artifact_next"));
-
+	$("#zy_artifact_contain").hover(
+		function(){$("#zy_artifact_contain>a").css("opacity",1)},
+		function(){$("#zy_artifact_contain>a").css("opacity",0)}
+	)
 
     //社区部分显示左右按钮
-    ZY.DataManager.add_hover_event($("#zy_community_contain"),$("#zy_community_list"),$("#zy_community_prev"),
-        $("#zy_community_next"));
-
-
-    //风景向右点击
-    $("#zy_landscape_next").click(function(){
-        //调用函数
-        ZY.DataManager.show_next_animate($("#zy_landscape_contain"),240,3,ZY.DataManager.lastLandscapeDate);
-
-    });
-
-    //风景向左点击
-    //风景向左点击
-    $("#zy_landscape_prev").click(function(){
-        //调用函数
-        ZY.DataManager.show_prev_animate($("#zy_landscape_contain"),240,3);
-
-    });
-	
-    //人文向右点击
-    $("#zy_people_next").click(function(){
-        //调用函数
-        ZY.DataManager.show_next_animate($("#zy_people_contain"),340,2,ZY.DataManager.lastPeopleDate);
-
-    });
-
-    //人文向左点击
-    $("#zy_people_prev").click(function(){
-        //调用函数
-        ZY.DataManager.show_prev_animate($("#zy_people_contain"),340,2);
-
-    });
-
-
-    //物语向右点击
-    $("#zy_artifact_next").click(function(){
-        //调用函数
-        ZY.DataManager.show_next_animate($("#zy_artifact_contain"),400,5,ZY.DataManager.lastArtifactDate);
-
-    });
-    //物语向左点击
-    $("#zy_artifact_prev").click(function(){
-        //调用函数
-        ZY.DataManager.show_prev_animate($("#zy_artifact_contain"),400,5);
-
-    });
-
-    //社区向右点击
-    $("#zy_community_next").click(function(){
-        //调用函数
-        ZY.DataManager.show_next_animate($("#zy_community_contain"),340,4,ZY.DataManager.lastCommunityDate);
-
-    });
-
-    //社区向左点击
-    $("#zy_community_prev").click(function(){
-        //调用函数
-        ZY.DataManager.show_prev_animate($("#zy_community_contain"),340,4);
-    });
-
-
+	$("#zy_community_contain").hover(
+		function(){$("#zy_community_contain>a").css("opacity",1)},
+		function(){$("#zy_community_contain>a").css("opacity",0)}
+	)
     
     //关闭弹出层
     $("#zy_show_close").click(function(){
@@ -240,7 +211,7 @@ $(document).ready(function() {
 	ZY.UIManager.popOutInit();
 	
     //加载展开页面
-    $(document).on("click","li[data-zy-post-type^=zy]",function(){
+    $(document).on("click","#zy_featured_articles>li[data-zy-post-type^=zy]",function(){
         post_id=$(this).data("zy-post-id");
         var post_type=$(this).data("zy-post-type");
 
