@@ -20,6 +20,7 @@ ZY.UIManager.bindHScrollOnWheel(targetID)在ID属性为targetID的元素上绑�
 ZY.UIManager.scrollingHandler() 更新页面所有悬浮元素的位置
 ZY.UIManager.fadingIn(target) 使target的透明度从0渐变到1，需预先设置target的css transition
 ZY.UIManager.wheelScrollModeOn() 启动页面滚轮模式
+ZY.UIManager.updateView(ID) 刷新文章内容视图,ID字符串为DOM元素的ID属性
 */
 var ZY=ZY||{};
 ZY.UIManager=function(){
@@ -74,14 +75,14 @@ ZY.UIManager=function(){
 			$("#zy_article_content").find("article").remove();
         	showBlackout(9996);
         	$("#zy_article_container").animate({left:"0%"},300,function(){
-				_self.callLoadingSpinner($("#zy_article_content"));
+				_self.callLoadingSpinner($(".zy_article_content_wrapper"));
                 ZY.DataManager.get_posts_detail(post_id,post_type);
 			});
         },
 		hideArticle:function(){
 			$("#zy_article_container").animate({left:"100%"},300);
 			hideBlackout();
-			this.hideLoadingSpinner($("#zy_article_content"))
+			this.hideLoadingSpinner($(".zy_article_content_wrapper"))
         },
 		showVideoDetail:function(url){
 			var _self=this;
@@ -338,13 +339,9 @@ ZY.UIManager=function(){
              *注意：背景图的高度是根据宽度变化的，可能会大于720，最大为一屏幕高，
              *720-（sy-landScapey)+100 可能大于一屏幕高，并不影响显示，因为当clip的显示高度大于实际高度时，只会显示成实际高度
              */
-			if(sy>landScapeY-winH && sy<=landScapeY+720){
+			if(sy>landScapeY-winH && sy<=landScapeY+winH-90){
 				if(!ZY.Config.deviceCode.iOS){
                     landScapeBG.addClass("zy_bg_fixed");
-
-                    //滚动的时候使用clip
-                    rect="rect(0px "+winW+"px "+(720-(sy-landScapeY)+100)+"px 0px)";
-                    landScapeBG.css("clip",rect);
 				}
 
 				if(!ZY.DataManager.landscapeLoaded){
@@ -361,13 +358,11 @@ ZY.UIManager=function(){
                 }
 			}
 			
-			if(sy>peopleY-winH && sy<=peopleY+720){
+			if(sy>peopleY-winH && sy<=peopleY+winH-90){
 				if(!ZY.Config.deviceCode.iOS){
                     peopleBG.addClass("zy_bg_fixed");
 
-                    //滚动的时候使用clip
-                    rect="rect(0px "+winW+"px "+(720-(sy-peopleY)+100)+"px 0px)";
-                    peopleBG.css("clip",rect);
+
 				}
 				
 				if(!ZY.DataManager.peopleLoaded){
@@ -383,13 +378,11 @@ ZY.UIManager=function(){
                 }
 			}
 			
-			if(sy>artifactY-winH && sy<=artifactY+720){
+			if(sy>artifactY-winH && sy<=artifactY+winH-90){
 				if(!ZY.Config.deviceCode.iOS){
                     artifactBG.addClass("zy_bg_fixed");
 
-                    //滚动的时候使用clip
-                    rect="rect(0px "+winW+"px "+(720-(sy-artifactY)+100)+"px 0px)";
-                    artifactBG.css("clip",rect);
+
 				}
 
 				if(!ZY.DataManager.artifactLoaded){
@@ -405,13 +398,11 @@ ZY.UIManager=function(){
                 }
 			}
 
-			if(sy>communityY-winH && sy<=communityY+720){
+			if(sy>communityY-winH && sy<=communityY+winH-90){
 				if(!ZY.Config.deviceCode.iOS){
                     communityBG.addClass("zy_bg_fixed");
 
-                    //滚动的时候使用clip
-                    rect="rect(0px "+winW+"px "+(720-(sy-communityY)+100)+"px 0px)";
-                    communityBG.css("clip",rect);
+
 				}
 				
 				if(!ZY.DataManager.communityLoaded){
@@ -459,6 +450,14 @@ ZY.UIManager=function(){
                     nextBtn.addClass("zy_disable");
                 }
             }
+        },
+
+        updateView:function(eleID){
+            if(eleID=="#zy_article_content"){
+                $("#zy_article_content").css("height",$(window).height()-50+"px")
+                $("#zy_article_content .allslides-slide").css("height",$(window).height()-110+"px")
+            }
+
         }
 
     }

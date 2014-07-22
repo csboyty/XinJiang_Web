@@ -233,9 +233,12 @@ ZY.DataManager={
                         var data=response.data;
 
                         var html=juicer(tpl,data);
+                        //填充数据
                         $("#zy_article_content").append(html);
+                        //刷新一下页面元素的高度
+                        ZY.UIManager.updateView("#zy_article_content");
 
-                        ZY.UIManager.hideLoadingSpinner($("#zy_article_content"));
+                        ZY.UIManager.hideLoadingSpinner($(".zy_article_content_wrapper"));
                     }else{
 
                         //提示报错

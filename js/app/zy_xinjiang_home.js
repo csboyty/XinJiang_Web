@@ -105,19 +105,45 @@ $(document).ready(function() {
 		
     /*触屏滚动 */
     //内容详情滚动
-    Draggable.create(".zy_article_content", {
+    Draggable.create(".zy_article_content_wrapper", {
         type:"scrollLeft", 
-        edgeResistance:0.5, 
-        throwProps:true, 
+        edgeResistance:0.5,
+        throwProps:true,
+        dragClickables:true,
         lockAxis:true,
         onClick:function(evt){
-        
+            console.log(evt);
+            console.log(evt.target)
+            var clickTarget=evt.target || evt.srcElement
+            var url;
+            //只有点击视频的时候才弹窗，点击图片不弹窗
+            if($(clickTarget).is("a.videoslide>img")){
+                url=ZY.Config.siteurl+"/show_media/"+post_id+"/"+$(clickTarget).data("zy-media-id");
+                ZY.UIManager.showVideoDetail(url);
+            }else if($(clickTarget).is("a.videoslide")){
+                url=ZY.Config.siteurl+"/show_media/"+post_id+"/"+$(clickTarget).find("img").data("zy-media-id");
+                ZY.UIManager.showVideoDetail(url);
+            }
+            /*if($(clickTarget).is("img[data-zy-media-id]")){
+                elementA=$(clickTarget).parents("a")
+                if(elementA.hasClass("videoslide")){
+                    url=ZY.Config.siteurl+"/show_media/"+post_id+"/"+$(clickTarget).data("zy-media-id");
+                    ZY.UIManager.showVideoDetail(url);
+
+                }else {
+                    url=elementA.attr("href");
+                    ZY.UIManager.showImageDetail(url);
+
+                }
+                return false;
+            }*/
+
         },        
         onDragEnd:function(evt){
         
         }
     });
-    //内容列表滚动，改
+    //内容列表滚动
     Draggable.create(".zy_list_container", {
         type:"scrollLeft", 
         edgeResistance:0.5, 
@@ -143,6 +169,7 @@ $(document).ready(function() {
             var clickTarget=evt.target || evt.srcElement
             clickTarget=$(clickTarget).parents(".zy_list_container")
             var containerID=clickTarget.attr("id")
+            //根据containerID刷新相应内容区块
             switch (containerID){
                 case "zy_landscape_list_container":
                     ZY.DataManager.zy_get_posts(
@@ -223,21 +250,26 @@ $(document).ready(function() {
     });
 
     //显示大图
-    $(document).on("click","#zy_article_content a",function(){
-		var url;
-		var elementA=$(this);
-		if(elementA.hasClass("videoslide")){
-			url=ZY.Config.siteurl+"/show_media/"+post_id+"/"+elementA.find("img").data("zy-media-id");
-			ZY.UIManager.showVideoDetail(url);
-			return false;
-		}else if(elementA.find("img")){
-			url=elementA.attr("href");
-			ZY.UIManager.showImageDetail(url);
-			return false;	
-		}else{
-			window.open(elementA.attr("href"))
-        }
+    $(document).on("click","#zy_article_content a",function(evt){
+
+        evt.preventDefault();
+        //evt.stopPropagation();
+        //return false;
+        /*var url;
+        var elementA=$(this);
+        if(elementA.hasClass("videoslide")){
+            url=ZY.Config.siteurl+"/show_media/"+post_id+"/"+elementA.find("img").data("zy-media-id");
+            ZY.UIManager.showVideoDetail(url);
+            return false;
+        }else if(elementA.find("img")){
+            url=elementA.attr("href");
+            ZY.UIManager.showImageDetail(url);
+            return false;
+        }else{
+            window.open(elementA.attr("href"))
+        }*/
     });
+
 	//window 的scroll事件
 	$(window).on("scroll",function(evt){
 		ZY.UIManager.scrollingHandler()
