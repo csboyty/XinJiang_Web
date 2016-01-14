@@ -9,41 +9,7 @@
     <title>疆域</title>
     <link rel="stylesheet" type="text/css"
           href="css/app/zy_xinjiang_home.min.css"/>
-    <script type="text/javascript" src="js/lib/modernizr.js"></script>
-    <script type="text/javascript">
-		//加载资源
-		Modernizr.load([			
-			{
-                test:Modernizr.rgba &&
-                     Modernizr.borderradius &&
-                     Modernizr.boxshadow &&
-                     Modernizr.textshadow &&
-                     Modernizr.opacity &&
-                     Modernizr.cssanimations &&
-                     Modernizr.csscolumns &&
-                     Modernizr.csstransitions &&
-                     Modernizr.generatedcontent &&
-                     Modernizr.video &&
-                     Modernizr.audio,
-                nope:["js/lib/jquery-1.10.2.min.js","js/app/ZY.UIManager.js"],
-				//加载本地资源
-				yep:[
-					"js/lib/jquery-1.10.2.min.js",
-					"js/lib/juicer-min.js",
-					"js/lib/greensock/TweenMax.min.js",
-					"js/lib/greensock/ScrollToPlugin.min.js",
-                    "js/app/index.min.js"
-                ],
-                callback:function(key,testResult){
-                    if(testResult!==true&&key=="js/app/ZY.UIManager.js"){
-                        ZY.UIManager.popOutMsg("很抱歉，本站使用的一些HTML5特性，您的浏览器可能不支持，为了获得最佳浏览体验，建议您将浏览器升级到最新版本，或选用其他兼容HTML5的浏览器，我们推荐Chrome浏览器和火狐浏览器。",true);
-                    }
-                }
-			}
-		]);
-		
-    </script>
-    <script src="phonegap.js"></script>
+
 
 </head>
 <body>
@@ -424,5 +390,41 @@
 
 <!--下载音乐的target-->
 <iframe name="zy_download_music" style="display: none"></iframe>
+
+<script type="text/javascript" src="js/lib/modernizr.js"></script>
+<script type="text/javascript">
+    //加载资源
+    Modernizr.load([
+        {
+            test:Modernizr.rgba &&
+                    Modernizr.borderradius &&
+                    Modernizr.boxshadow &&
+                    Modernizr.textshadow &&
+                    Modernizr.opacity &&
+                    Modernizr.cssanimations &&
+                    Modernizr.csscolumns &&
+                    Modernizr.csstransitions &&
+                    Modernizr.generatedcontent &&
+                    Modernizr.video &&
+                    Modernizr.audio,
+            nope:["js/lib/jquery-1.10.2.min.js","js/app/ZY.UIManager.js"],
+            //加载本地资源
+            yep:[
+                "js/lib/jquery-1.10.2.min.js",
+                "js/lib/juicer-min.js",
+                "js/lib/greensock/TweenMax.min.js",
+                "js/lib/greensock/ScrollToPlugin.min.js",
+                "js/app/index.min.js"
+            ],
+            callback:function(key,testResult){
+                if(testResult!==true&&key=="js/app/ZY.UIManager.js"){
+                    ZY.UIManager.popOutMsg("很抱歉，本站使用的一些HTML5特性，您的浏览器可能不支持，为了获得最佳浏览体验，建议您将浏览器升级到最新版本，或选用其他兼容HTML5的浏览器，我们推荐Chrome浏览器和火狐浏览器。",true);
+                }
+            }
+        }
+    ]);
+
+</script>
+
 </body>
 </html>
